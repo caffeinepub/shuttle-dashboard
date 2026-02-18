@@ -61,6 +61,27 @@ export function DashboardPage() {
     centerName: '',
   }));
 
+  // Derive unique center options from all dashboards
+  const centerOptions = useMemo(() => {
+    if (!dashboards) return [];
+    
+    const uniqueCenters = new Set<string>();
+    
+    // Add all centerName values from dashboards
+    dashboards.forEach((dashboard) => {
+      if (dashboard.centerName && dashboard.centerName.trim()) {
+        uniqueCenters.add(dashboard.centerName.trim());
+      }
+    });
+    
+    // Include current editData centerName if present
+    if (editData.centerName && editData.centerName.trim()) {
+      uniqueCenters.add(editData.centerName.trim());
+    }
+    
+    return Array.from(uniqueCenters).sort();
+  }, [dashboards, editData.centerName]);
+
   // Sync editData when dashboard or selected month changes
   useMemo(() => {
     if (currentDashboard) {
@@ -222,6 +243,7 @@ export function DashboardPage() {
                   isSaving={saveMutation.isPending}
                   isDeleting={deleteMutation.isPending}
                   hasExistingRecord={!!currentDashboard}
+                  centerOptions={centerOptions}
                 />
               </div>
             </>

@@ -1,12 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Add a center comparison chart for the selected month, remove center location everywhere, and persist per-coach center values in monthly records.
+**Goal:** Let users pick existing center names (with autocomplete/options) in the Monthly Record editor while still allowing free-text entry.
 
 **Planned changes:**
-- Add a responsive grouped bar chart on the dashboard to compare Revenue Done vs Target per Center for the currently selected month/year, driven by all persisted records matching that month/year (with an empty-state when no records exist).
-- Remove Center Location across the UI and data flow: delete the input, validation, display, and backend storage so only Center Name remains.
-- Update the Coaches editor to include a required per-row "Center" field, and persist/restore the full coaches array (name, salary, center) for each month/year record.
-- Update backend record schema and queries to support multiple centers per month/year, chart data fetching (getAll + month/year filtering), and compatibility for existing metrics (keep/derive aggregated coachSalaries); include a migration/upgrade path so existing stored records still load.
+- Update the Monthly Record editor "Center Name" field to show selectable options populated from unique, non-empty `centerName` values found in already-loaded dashboards data, while still allowing manual typing of new values.
+- Update the Coaches table editor so each coach row’s "Center" field also offers the same selectable options (including the current record’s `centerName` when present), while still allowing manual typing.
+- Ensure both option lists update automatically when dashboard data is refreshed via React Query (e.g., after saving a new center name or deleting the last record for a center).
 
-**User-visible outcome:** Users can select a month and see a grouped bar chart comparing Revenue vs Target across all centers recorded for that month, manage monthly records using only Center Name (no location), and edit/save coach rows including each coach’s Center so they reload correctly.
+**User-visible outcome:** In the Monthly Record editor, users can select a center name from existing saved records (or type a new one) for both the main Center Name field and each coach’s Center field, and the options update automatically as records are saved or removed.

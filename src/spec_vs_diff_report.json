@@ -1,35 +1,23 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T03:16:32.647Z",
-  "summary": "REQ-9/10/11 appear largely implemented (new CenterComparisonChart; Center Location removed from editor flow; coach rows now include Center with validation). However, there are key gaps for REQ-12: the storage/keying scheme shown still only supports one record per month/year (blocking multiple centers per month), and the backend no longer keeps/derives an aggregated coachSalaries field for compatibility as required.",
+  "generatedAt": "2026-02-18T03:22:50.899Z",
+  "summary": "REQ-13 and REQ-14 appear implemented via HTML datalist-based autocomplete for Center Name and per-coach Center fields, with options derived from already-fetched dashboards data and still allowing free typing. REQ-15 (automatic option updates after save/delete via React Query refresh) is only partially evidenced: options are recomputed from `dashboards`, but the diff summary does not show whether save/delete mutations reliably trigger refetch/invalidation so the options update after mutations.",
   "missing_requirements": [
     {
-      "id": "REQ-12",
-      "requirement": "Each record stored for a month/year can represent a distinct center (so multiple centers can exist in the same month).",
-      "reason": "The frontend generates the dashboard record ID solely from year and month (year*100+month), and the backend stores dashboards keyed by a single Nat id. This makes it impossible to store multiple records for the same month/year with different centers because they would collide on the same id.",
+      "id": "REQ-15",
+      "requirement": "Ensure the selectable options lists for Center Name and Coach Center automatically reflect newly saved or deleted records after React Query refreshes dashboard data.",
+      "reason": "The diff shows `centerOptions` is derived from `dashboards` and thus would update when `dashboards` changes, but the provided diff summary does not include evidence that the save/delete React Query mutations invalidate/refetch `useAllDashboards()` so that `dashboards` actually updates after saving or deleting records (especially needed for removing an option after deleting the last record for a center).",
       "evidence": [
-        "frontend/src/pages/DashboardPage.tsx (id = BigInt(data.year * 100 + data.month); currentDashboard find by month/year only)",
-        "backend/main.mo (dashboards : Map.Map<Nat, MonthlyDashboard>; upsertDashboard(id, dashboard))"
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "requirement": "Keep or derive the aggregated coachSalaries value for compatibility with existing metrics display.",
-      "reason": "The updated backend MonthlyDashboard type removed the coachSalaries field and does not show any derived/computed coachSalaries value in query responses. Migration also drops old coachSalaries into an empty coaches array without preserving an aggregate.",
-      "evidence": [
-        "backend/main.mo (MonthlyDashboard has month/year/revenue/target/coaches/centerName only; no coachSalaries)",
-        "backend/migration.mo (OldMonthlyDashboard includes coachSalaries; NewMonthlyDashboard omits it; sets coaches = [])"
+        "frontend/src/pages/DashboardPage.tsx (truncated)",
+        "frontend/src/hooks/useMonthlyDashboards.ts (mentioned in frontend-file-summaries.txt but content not shown)"
       ]
     }
   ],
   "hallucinated_features": [],
-  "confidence": 0.74,
+  "confidence": 0.62,
   "changed_files": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/components/dashboard/CenterComparisonChart.tsx",
     "frontend/src/components/dashboard/CoachesTableEditor.tsx",
     "frontend/src/components/dashboard/MonthlyRecordEditor.tsx",
     "frontend/src/pages/DashboardPage.tsx",

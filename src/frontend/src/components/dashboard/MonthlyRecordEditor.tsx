@@ -29,6 +29,7 @@ interface MonthlyRecordEditorProps {
   isSaving: boolean;
   isDeleting: boolean;
   hasExistingRecord: boolean;
+  centerOptions: string[];
 }
 
 export function MonthlyRecordEditor({
@@ -39,6 +40,7 @@ export function MonthlyRecordEditor({
   isSaving,
   isDeleting,
   hasExistingRecord,
+  centerOptions,
 }: MonthlyRecordEditorProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -121,7 +123,13 @@ export function MonthlyRecordEditor({
               value={data.centerName}
               onChange={(e) => handleCenterNameChange(e.target.value)}
               className={errors.centerName ? 'border-destructive' : ''}
+              list="center-options"
             />
+            <datalist id="center-options">
+              {centerOptions.map((option) => (
+                <option key={option} value={option} />
+              ))}
+            </datalist>
             {errors.centerName && (
               <p className="text-sm text-destructive">{errors.centerName}</p>
             )}
@@ -170,6 +178,7 @@ export function MonthlyRecordEditor({
             coaches={data.coaches}
             onChange={(coaches) => onChange({ ...data, coaches })}
             errors={errors}
+            centerOptions={centerOptions}
           />
         </div>
 

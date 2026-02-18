@@ -1,107 +1,76 @@
 {
   "kind": "build_request",
-  "title": "Add center comparison chart, drop center location, and add center field to coach rows",
+  "title": "Add selectable options for Center fields in the Monthly Record editor",
   "projectName": "Shuttle Dashboard",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-9",
-      "text": "Add a bar chart to the dashboard that matches the uploaded example: a grouped bar chart comparing Revenue Done vs Target per Center for the currently selected month (X-axis: Center name; Y-axis: amount; legend with two series). The chart must be driven from persisted monthly records (i.e., all records that match the selected month/year) so multiple centers can be compared within the same month.",
+      "id": "REQ-13",
+      "text": "Add a selectable options UI for the \"Center Name\" field in the Monthly Record editor so users can pick from existing center names already saved in dashboards, while still allowing manual entry of a new center name.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4"
         ],
         "quotes": [
-          "Add such chart and remove center location, keep only center name, in coaches information add center as well"
+          "There should add option for all these"
         ]
       },
       "acceptanceCriteria": [
-        "When multiple dashboard records exist for the same selected month/year with different center names, the chart renders one grouped pair of bars (Revenue vs Target) per center.",
-        "The chart updates when the month selector changes.",
-        "The chart has a clear title and legend and is readable on desktop and mobile (responsive layout).",
-        "If there are no records for the selected month/year, the chart area shows an empty-state message instead of failing."
+        "When dashboards are loaded, the Center Name input provides a list of unique, non-empty centerName values from existing saved monthly records.",
+        "The Center Name field still supports typing a new value that is not in the list.",
+        "Selecting an option updates the editor state the same way typing does (validation and save behavior remain correct)."
       ]
     },
     {
-      "id": "REQ-10",
-      "text": "Remove Center location everywhere and keep only Center name across the UI and data flow: eliminate the Center Location input, its validation, and the Center info display of location; ensure save/load only uses center name.",
-      "target": "both",
+      "id": "REQ-14",
+      "text": "Add a selectable options UI for the \"Center\" field in each coach row in the Coaches table editor so users can pick from existing center names already saved in dashboards, while still allowing manual entry of a new center name.",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4"
         ],
         "quotes": [
-          "Add such chart and remove center location, keep only center name, in coaches information add center as well"
+          "There should add option for all these"
         ]
       },
       "acceptanceCriteria": [
-        "Monthly record editor shows only a single Center Name field (no Center Location field).",
-        "Dashboard header/center info card (if present) displays only the center name and does not render an empty/placeholder location line.",
-        "Backend types and APIs no longer require or store center.location; existing persisted data continues to load without trapping."
+        "Each coach row's Center field provides a list of unique, non-empty center names derived from existing saved monthly records (and should include the current record's centerName if present).",
+        "The coach Center field still supports typing a new value that is not in the list.",
+        "Selecting an option updates that coach row's center value and existing validation continues to work."
       ]
     },
     {
-      "id": "REQ-11",
-      "text": "Add a Center field to each coach row in the Coaches editor (coaches information) and persist coach rows in the backend so coach-level Center values are saved and restored for a month/year record.",
-      "target": "both",
+      "id": "REQ-15",
+      "text": "Ensure the selectable options lists for Center Name and Coach Center automatically reflect newly saved or deleted records after React Query refreshes dashboard data.",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4"
         ],
         "quotes": [
-          "in coaches information add center as well"
+          "There should add option for all these"
         ]
       },
       "acceptanceCriteria": [
-        "Coaches table includes a new editable column \"Center\" for each coach row (in addition to Coach Name and Salary).",
-        "Validation includes the new coach center field as required (per-row error shown consistently with existing validation patterns).",
-        "Saving a monthly record persists the full coaches array (including center) in the backend, and reloading the month restores the same coach rows.",
-        "Total coach salary metric and salary output percentage continue to compute correctly using the saved coach salaries."
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "text": "Update the backend data model and queries to support the chart and coach persistence: each persisted record must include month/year, revenue, target, center name, and coaches array; keep or derive the aggregated coachSalaries value for compatibility with existing metrics display.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Add such chart ... in coaches information add center as well"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend exposes a stable way for the frontend to fetch all dashboards and filter by month/year to build the chart.",
-        "Each record stored for a month/year can represent a distinct center (so multiple centers can exist in the same month).",
-        "Existing CRUD operations (upsert/get/delete/getAll) still work after the schema update.",
-        "State upgrade path is handled (via conditional migration) so existing stored records do not break after deployment."
+        "After saving a record with a new centerName, that center appears as an option for Center Name and Coach Center without a manual page refresh.",
+        "After deleting the last record for a given centerName, the options list no longer includes that center name once data is refetched.",
+        "No changes are required to backend APIs to support center options (derive options from the already-fetched getAllDashboards data)."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services).",
-    "Do not edit files under frontend/src/components/ui, frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, or frontend/src/main.tsx; compose existing components instead.",
-    "Use English for any user-facing text."
+    "Do not edit files under frontend/src/components/ui (compose existing UI components instead).",
+    "Do not modify immutable hook files listed in SYSTEM_CONTEXT (useActor/useInternetIdentity/main.tsx, etc.).",
+    "Keep backend as a single-actor Motoko canister; avoid schema changes unless strictly necessary."
   ],
   "nonGoals": [
-    "Adding third-party analytics, external databases, or real-time features.",
-    "Implementing multi-user permissions or role-based access control beyond current Internet Identity integration.",
-    "Import/export (CSV/Excel) features for centers/coaches."
+    "Adding new backend endpoints solely for center options.",
+    "Changing the monthly record storage keying strategy (year*100+month).",
+    "Adding third-party integrations or external databases."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

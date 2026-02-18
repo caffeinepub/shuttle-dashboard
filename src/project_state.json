@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 9,
   "summary": "Build an editable, badminton-themed dashboard to track a center’s monthly revenue, targets, coach salaries, and salary output percentage, now including a chart visualization and using only a Center name (no Center location), with Center also captured for coaches information.",
   "architectural_notes": [
     "Center should be represented as a name-only field (no location) and used consistently in monthly records and coach salary entries."
@@ -77,6 +77,30 @@
       "title": "Add a Center field to each coach row in the Coaches editor (coaches information) and persist coach rows in the backend so coach-level Center values are saved and restored for a month/year record.",
       "reqIds": [
         "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-selectable-options-ui-for-the-center-name-field-in-the-monthly-record-editor-so-users-can-pick-from-existing-center-names-already-saved-in-dashboards-while-still-allowing-manual-entry-of-a-new-center-name",
+      "title": "Add a selectable options UI for the \"Center Name\" field in the Monthly Record editor so users can pick from existing center names already saved in dashboards, while still allowing manual entry of a new center name.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-selectable-options-ui-for-the-center-field-in-each-coach-row-in-the-coaches-table-editor-so-users-can-pick-from-existing-center-names-already-saved-in-dashboards-while-still-allowing-manual-entry-of-a-new-center-name",
+      "title": "Add a selectable options UI for the \"Center\" field in each coach row in the Coaches table editor so users can pick from existing center names already saved in dashboards, while still allowing manual entry of a new center name.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-selectable-options-lists-for-center-name-and-coach-center-automatically-reflect-newly-saved-or-deleted-records-after-react-query-refreshes-dashboard-data",
+      "title": "Ensure the selectable options lists for Center Name and Coach Center automatically reflect newly saved or deleted records after React Query refreshes dashboard data.",
+      "reqIds": [
+        "REQ-15"
       ],
       "version": 1
     }

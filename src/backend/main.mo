@@ -5,9 +5,9 @@ import Iter "mo:core/Iter";
 import Array "mo:core/Array";
 import Order "mo:core/Order";
 import Text "mo:core/Text";
-import Migration "migration";
 
-(with migration = Migration.run)
+
+
 actor {
   // Types
   type Month = Nat; // 1 = January, 12 = December

@@ -8,9 +8,10 @@ interface CoachesTableEditorProps {
   coaches: Coach[];
   onChange: (coaches: Coach[]) => void;
   errors: Record<string, string>;
+  centerOptions: string[];
 }
 
-export function CoachesTableEditor({ coaches, onChange, errors }: CoachesTableEditorProps) {
+export function CoachesTableEditor({ coaches, onChange, errors, centerOptions }: CoachesTableEditorProps) {
   const handleAddCoach = () => {
     const newCoach: Coach = {
       id: `coach-${Date.now()}`,
@@ -74,7 +75,13 @@ export function CoachesTableEditor({ coaches, onChange, errors }: CoachesTableEd
                       onChange={(e) => handleUpdateCoach(coach.id, 'center', e.target.value)}
                       placeholder="Enter center name"
                       className={errors[`coach-center-${index}`] ? 'border-destructive' : ''}
+                      list="coach-center-options"
                     />
+                    <datalist id="coach-center-options">
+                      {centerOptions.map((option) => (
+                        <option key={option} value={option} />
+                      ))}
+                    </datalist>
                     {errors[`coach-center-${index}`] && (
                       <p className="text-xs text-destructive mt-1">
                         {errors[`coach-center-${index}`]}
