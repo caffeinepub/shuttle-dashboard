@@ -1,0 +1,82 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Shuttle Dashboard: Center comparison chart + remove center location + coach center field",
+  "requirements": [
+    {
+      "id": "REQ-9",
+      "summary": "Add a responsive grouped bar chart comparing Revenue vs Target per Center for the selected month/year using persisted monthly records.",
+      "acceptanceCriteria": [
+        "When multiple dashboard records exist for the same selected month/year with different center names, the chart renders one grouped pair of bars (Revenue vs Target) per center.",
+        "The chart updates when the month selector changes.",
+        "The chart has a clear title and legend and is readable on desktop and mobile (responsive layout).",
+        "If there are no records for the selected month/year, the chart area shows an empty-state message instead of failing."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/CenterComparisonChart.tsx",
+          "operation": "create",
+          "description": "Create a new dashboard section component rendering a grouped bar chart (two series: Revenue Done vs Target) keyed by center name for the currently selected month/year, including a title, legend, responsive layout, and an empty-state message when there is no data. Use shadcn-ui Card (and existing primitives) for consistent styling; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Wire the CenterComparisonChart into the dashboard page. Derive the chart dataset by filtering the fetched persisted dashboards to the selected month/year and passing centerName/revenue/target to the chart. Ensure the chart re-renders when the selected month changes and does not crash on empty results."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Remove Center Location across the UI/data flow so only Center Name is shown, validated, and saved/loaded.",
+      "acceptanceCriteria": [
+        "Monthly record editor shows only a single Center Name field (no Center Location field).",
+        "Dashboard header/center info card (if present) displays only the center name and does not render an empty/placeholder location line.",
+        "Backend types and APIs no longer require or store center.location; existing persisted data continues to load without trapping."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/MonthlyRecordEditor.tsx",
+          "operation": "modify",
+          "description": "Remove the Center Location input and its validation. Keep a single required Center Name field. Ensure save-time validation no longer checks for a location and that all user-facing text remains in English. Use existing shadcn-ui form components as currently composed; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Update center display to show only the center name (remove any location line and related iconography if it implies location). Update local edit state shape and save/load mapping so only centerName is used throughout the frontend data flow."
+        },
+        {
+          "path": "frontend/src/hooks/useMonthlyDashboards.ts",
+          "operation": "modify",
+          "description": "Align frontend typing/mapping assumptions (if any) to the updated record shape that no longer includes center location, ensuring queries/mutations continue to function with the persisted records and UI state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Add and validate a per-coach Center field in the Coaches editor and ensure save/load flows include coach-level center values for the selected month/year.",
+      "acceptanceCriteria": [
+        "Coaches table includes a new editable column \"Center\" for each coach row (in addition to Coach Name and Salary).",
+        "Validation includes the new coach center field as required (per-row error shown consistently with existing validation patterns).",
+        "Saving a monthly record persists the full coaches array (including center) in the backend, and reloading the month restores the same coach rows.",
+        "Total coach salary metric and salary output percentage continue to compute correctly using the saved coach salaries."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/dashboard/CoachesTableEditor.tsx",
+          "operation": "modify",
+          "description": "Add a new editable \"Center\" column to each coach row with required-field error rendering consistent with existing per-row validation. Ensure add/remove/update handlers support the new field. Use existing shadcn-ui Table/Input/Button components as currently composed; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/dashboard/MonthlyRecordEditor.tsx",
+          "operation": "modify",
+          "description": "Extend coaches validation to require coach center per row (e.g., errors keyed consistently with current patterns). Ensure the editor passes/receives coaches objects that include center alongside name and salary, and that validation messaging remains consistent."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Update local Coach/DashboardData shapes to include coach center. Update save/load mapping between UI state and persisted record type so coaches are included on save and restored on load for the selected month/year. Keep total coach salary and salary output percent calculations correct based on coach salaries."
+        }
+      ]
+    }
+  ]
+}

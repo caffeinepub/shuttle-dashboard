@@ -1,0 +1,107 @@
+{
+  "kind": "build_request",
+  "title": "Add center comparison chart, drop center location, and add center field to coach rows",
+  "projectName": "Shuttle Dashboard",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-9",
+      "text": "Add a bar chart to the dashboard that matches the uploaded example: a grouped bar chart comparing Revenue Done vs Target per Center for the currently selected month (X-axis: Center name; Y-axis: amount; legend with two series). The chart must be driven from persisted monthly records (i.e., all records that match the selected month/year) so multiple centers can be compared within the same month.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Add such chart and remove center location, keep only center name, in coaches information add center as well"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When multiple dashboard records exist for the same selected month/year with different center names, the chart renders one grouped pair of bars (Revenue vs Target) per center.",
+        "The chart updates when the month selector changes.",
+        "The chart has a clear title and legend and is readable on desktop and mobile (responsive layout).",
+        "If there are no records for the selected month/year, the chart area shows an empty-state message instead of failing."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Remove Center location everywhere and keep only Center name across the UI and data flow: eliminate the Center Location input, its validation, and the Center info display of location; ensure save/load only uses center name.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Add such chart and remove center location, keep only center name, in coaches information add center as well"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Monthly record editor shows only a single Center Name field (no Center Location field).",
+        "Dashboard header/center info card (if present) displays only the center name and does not render an empty/placeholder location line.",
+        "Backend types and APIs no longer require or store center.location; existing persisted data continues to load without trapping."
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Add a Center field to each coach row in the Coaches editor (coaches information) and persist coach rows in the backend so coach-level Center values are saved and restored for a month/year record.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "in coaches information add center as well"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Coaches table includes a new editable column \"Center\" for each coach row (in addition to Coach Name and Salary).",
+        "Validation includes the new coach center field as required (per-row error shown consistently with existing validation patterns).",
+        "Saving a monthly record persists the full coaches array (including center) in the backend, and reloading the month restores the same coach rows.",
+        "Total coach salary metric and salary output percentage continue to compute correctly using the saved coach salaries."
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Update the backend data model and queries to support the chart and coach persistence: each persisted record must include month/year, revenue, target, center name, and coaches array; keep or derive the aggregated coachSalaries value for compatibility with existing metrics display.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Add such chart ... in coaches information add center as well"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes a stable way for the frontend to fetch all dashboards and filter by month/year to build the chart.",
+        "Each record stored for a month/year can represent a distinct center (so multiple centers can exist in the same month).",
+        "Existing CRUD operations (upsert/get/delete/getAll) still work after the schema update.",
+        "State upgrade path is handled (via conditional migration) so existing stored records do not break after deployment."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services).",
+    "Do not edit files under frontend/src/components/ui, frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, or frontend/src/main.tsx; compose existing components instead.",
+    "Use English for any user-facing text."
+  ],
+  "nonGoals": [
+    "Adding third-party analytics, external databases, or real-time features.",
+    "Implementing multi-user permissions or role-based access control beyond current Internet Identity integration.",
+    "Import/export (CSV/Excel) features for centers/coaches."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-a-bar-chart-to-the-dashboard-that-matches-the-uploaded-example-a-grouped-bar-chart-comparing-revenue-done-vs-target-per-center-for-the-currently-selected-month-x-axis-center-name-y-axis-amount-legend-with-two-series-the-chart-must-be-driven-from-persisted-monthly-records-i-e-all-records-that-match-the-selected-month-year-so-multiple-centers-can-be-compared-within-the-same-month",
+      "featureTitle": "Add a bar chart to the dashboard that matches the uploaded example: a grouped bar chart comparing Revenue Done vs Target per Center for the currently selected month (X-axis: Center name; Y-axis: amount; legend with two series). The chart must be driven from persisted monthly records (i.e., all records that match the selected month/year) so multiple centers can be compared within the same month.",
+      "files": [
+        "frontend/src/components/dashboard/CenterComparisonChart.tsx",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-center-location-everywhere-and-keep-only-center-name-across-the-ui-and-data-flow-eliminate-the-center-location-input-its-validation-and-the-center-info-display-of-location-ensure-save-load-only-uses-center-name",
+      "featureTitle": "Remove Center location everywhere and keep only Center name across the UI and data flow: eliminate the Center Location input, its validation, and the Center info display of location; ensure save/load only uses center name.",
+      "files": [
+        "frontend/src/components/dashboard/MonthlyRecordEditor.tsx",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-center-field-to-each-coach-row-in-the-coaches-editor-coaches-information-and-persist-coach-rows-in-the-backend-so-coach-level-center-values-are-saved-and-restored-for-a-month-year-record",
+      "featureTitle": "Add a Center field to each coach row in the Coaches editor (coaches information) and persist coach rows in the backend so coach-level Center values are saved and restored for a month/year record.",
+      "files": [
+        "frontend/src/components/dashboard/CoachesTableEditor.tsx",
+        "frontend/src/components/dashboard/MonthlyRecordEditor.tsx",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

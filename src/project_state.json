@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Build an editable, badminton-themed dashboard to track a center’s monthly revenue, targets, coach salaries, and salary output percentage, now including a chart visualization and using only a Center name (no Center location), with Center also captured for coaches information.",
+  "architectural_notes": [
+    "Center should be represented as a name-only field (no location) and used consistently in monthly records and coach salary entries."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-dashboard-ui-that-shows-a-monthly-view-of-revenue-target-total-coaches-salary-and-salary-output-percentage-total-salary-revenue-100-for-a-selected-month",
+      "title": "Create a dashboard UI that shows a monthly view of: revenue, target, total coaches salary, and salary output percentage (total salary / revenue * 100) for a selected month.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-an-easy-data-editing-experience-for-monthly-records-including-adding-a-new-month-editing-revenue-target-values-and-editing-coaches-add-remove-coach-rows-and-edit-salary-values",
+      "title": "Provide an easy data-editing experience for monthly records, including adding a new month, editing revenue/target values, and editing coaches (add/remove coach rows and edit salary values).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wire-the-frontend-to-the-backend-using-react-query-for-loading-and-mutations-including-optimistic-or-immediate-ui-updates-with-proper-loading-error-states",
+      "title": "Wire the frontend to the backend using React Query for loading and mutations, including optimistic or immediate UI updates with proper loading/error states.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-badminton-themed-visual-design-across-the-dashboard-court-inspired-color-palette-shuttlecock-racket-motifs-and-sporty-typography-while-keeping-the-layout-clean-and-readable",
+      "title": "Apply a cohesive badminton-themed visual design across the dashboard (court-inspired color palette, shuttlecock/racket motifs, and sporty typography) while keeping the layout clean and readable.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-static-badminton-themed-imagery-logo-mark-and-subtle-background-pattern-and-render-them-in-the-ui-as-part-of-the-dashboard-branding",
+      "title": "Add static badminton-themed imagery (logo/mark and subtle background pattern) and render them in the UI as part of the dashboard branding.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-center-input-to-the-monthly-record-editing-ui-and-wire-it-through-to-save-load-so-it-is-shown-in-the-dashboard-view-and-editable-in-the-editor",
+      "title": "Add a Center input to the monthly record editing UI and wire it through to save/load so it is shown in the dashboard view and editable in the editor.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-bar-chart-to-the-dashboard-that-matches-the-uploaded-example-a-grouped-bar-chart-comparing-revenue-done-vs-target-per-center-for-the-currently-selected-month-x-axis-center-name-y-axis-amount-legend-with-two-series-the-chart-must-be-driven-from-persisted-monthly-records-i-e-all-records-that-match-the-selected-month-year-so-multiple-centers-can-be-compared-within-the-same-month",
+      "title": "Add a bar chart to the dashboard that matches the uploaded example: a grouped bar chart comparing Revenue Done vs Target per Center for the currently selected month (X-axis: Center name; Y-axis: amount; legend with two series). The chart must be driven from persisted monthly records (i.e., all records that match the selected month/year) so multiple centers can be compared within the same month.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-center-location-everywhere-and-keep-only-center-name-across-the-ui-and-data-flow-eliminate-the-center-location-input-its-validation-and-the-center-info-display-of-location-ensure-save-load-only-uses-center-name",
+      "title": "Remove Center location everywhere and keep only Center name across the UI and data flow: eliminate the Center Location input, its validation, and the Center info display of location; ensure save/load only uses center name.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-center-field-to-each-coach-row-in-the-coaches-editor-coaches-information-and-persist-coach-rows-in-the-backend-so-coach-level-center-values-are-saved-and-restored-for-a-month-year-record",
+      "title": "Add a Center field to each coach row in the Coaches editor (coaches information) and persist coach rows in the backend so coach-level Center values are saved and restored for a month/year record.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Dashboard to track center revenue monthly (with editable data)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Track monthly targets in the dashboard (with editable data)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Track coaches' salaries in the dashboard (with editable data)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Calculate and display salary output as a percentage",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Apply a badminton theme/styling to the dashboard UI",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Provide an easy way to edit/update the dashboard data (e.g., inline editing or simple admin form)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Implement backend data storage and APIs to persist monthly dashboard records (revenue, target, and coach salaries) and to fetch them for display and editing.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add a 'Center' column in both relevant dashboard views/tables (e.g., monthly records and editing UI)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Extend the backend MonthlyDashboard record to include a Center field and persist it alongside month/year/revenue/target/coachSalaries.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add a chart visualization to the dashboard (for the monthly financial metrics).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Remove Center location and keep only Center name across the UI/data model.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Include a Center field in coaches information (associate coaches/salary rows with a center).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Update the backend data model and queries to support the chart and coach persistence: each persisted record must include month/year, revenue, target, center name, and coaches array; keep or derive the aggregated coachSalaries value for compatibility with existing metrics display.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Shuttle Dashboard",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
